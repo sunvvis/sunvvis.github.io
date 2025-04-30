@@ -1,103 +1,178 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getAllPosts, getAllTags } from "@/lib/posts";
+import PageLayout from "@/components/PageLayout";
+import PostCard from "@/components/PostCard";
+import TagBadge from "@/components/ui/TagBadge";
+
+// 서버 컴포넌트 명시
+export const dynamic = "force-dynamic";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // 최근 포스트 가져오기 (최대 6개)
+  const recentPosts = getAllPosts().slice(0, 6);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  // 태그 가져오기
+  const tags = getAllTags().slice(0, 20); // 최대 20개 태그만 표시
+
+  return (
+    <PageLayout
+      title="블로그"
+      description="Next.js로 만든 커스텀 기술 블로그입니다"
+      fullWidth={false}
+    >
+      {/* 히어로 섹션 */}
+      <section className="mb-16 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 rounded-2xl p-8 md:p-12 shadow-md relative overflow-hidden">
+        {/* 배경 패턴 */}
+        <div className="absolute inset-0 opacity-10 dark:opacity-5">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <defs>
+              <pattern
+                id="grid"
+                width="10"
+                height="10"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 10 0 L 0 0 0 10"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                />
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* <div className="relative max-w-3xl">
+          <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-50 mt-4 leading-tight">
+            AI 기술과 엔지니어링에 관한 <br />
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
+              인사이트
+            </span>
+            를 공유합니다.
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            머신러닝, 딥러닝, 자연어 처리, 컴퓨터 비전 등 AI 기술과 최신 연구
+            동향에 관한 글을 작성합니다. AI 모델 개발부터 실제 서비스 배포까지의
+            경험과 노하우를 이곳에서 만나보세요.
+          </p>
+        </div> */}
+        <div className="relative max-w-3xl">
+          <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-50 mt-4 leading-tight">
+            프로그래밍과 개발에 관한 <br />
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
+              인사이트와 경험
+            </span>
+            을 공유합니다
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            웹 개발, 프로그래밍 언어, 소프트웨어 아키텍쳐, 그리고 개발자 경험에
+            관한 글을 작성합니다. 최신 기술 트렌드와 실용적인 팁을 찾고
+            계신가요? 이곳에서 찾아보세요.
+          </p>
+        </div>
+      </section>
+
+      {/* 포스트 섹션 */}
+      <section className="mb-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
+            최신 포스트
+          </h2>
+          <Link
+            href="/posts"
+            className="text-blue-600 dark:text-blue-400 hover:underline flex items-center font-medium"
+          >
+            더보기
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recentPosts.length > 0 ? (
+            recentPosts.map((post) => <PostCard key={post.slug} post={post} />)
+          ) : (
+            <div className="col-span-full bg-white dark:bg-gray-800 rounded-xl p-8 text-center shadow-sm border border-gray-200 dark:border-gray-700">
+              <svg
+                className="w-16 h-16 mx-auto text-gray-400 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                />
+              </svg>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                아직 작성된 포스트가 없습니다.
+              </p>
+              <p className="text-gray-500 dark:text-gray-500 text-sm">
+                곧 새로운 콘텐츠가 업데이트될 예정입니다.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* 태그 섹션 */}
+      <section className="mb-16">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
+            태그
+          </h2>
+          <Link
+            href="/tags"
+            className="text-blue-600 dark:text-blue-400 hover:underline flex items-center font-medium"
+          >
+            더보기
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+        </div>
+        <div className="mt-4">
+          <div className="flex flex-wrap gap-3">
+            {tags.length > 0 ? (
+              tags.map((tag) => <TagBadge key={tag} tag={tag} />)
+            ) : (
+              <p className="text-gray-600 dark:text-gray-400">
+                아직 태그가 없습니다.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    </PageLayout>
   );
 }
