@@ -48,20 +48,6 @@ export default function Home() {
           </svg>
         </div>
 
-        {/* <div className="relative max-w-3xl">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-50 mt-4 leading-tight">
-            AI 기술과 엔지니어링에 관한 <br />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
-              인사이트
-            </span>
-            를 공유합니다.
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-            머신러닝, 딥러닝, 자연어 처리, 컴퓨터 비전 등 AI 기술과 최신 연구
-            동향에 관한 글을 작성합니다. AI 모델 개발부터 실제 서비스 배포까지의
-            경험과 노하우를 이곳에서 만나보세요.
-          </p>
-        </div> */}
         <div className="relative max-w-3xl">
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-50 mt-4 leading-tight">
             프로그래밍과 개발에 관한 <br />
