@@ -9,6 +9,14 @@ import Icon from "@/components/ui/Icon";
 import ClientGiscusComments from "@/components/ClientGiscusComments";
 import Image from "next/image";
 
+// 빌드 시점에 생성할 포스트 경로 지정
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
 /**
  * 블로그 포스트 페이지 props 타입 정의
  * @typedef {Object} Props

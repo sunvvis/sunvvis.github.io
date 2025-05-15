@@ -7,6 +7,22 @@ import { notFound } from "next/navigation";
 // 정적 내보내기를 위해 dynamic 설정 제거
 // export const dynamic = "force-dynamic";
 
+// 빌드 시점에 생성할 포스트 페이지네이션 경로 지정
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  const postsPerPage = 12;
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  
+  const params = [];
+  for (let page = 1; page <= totalPages; page++) {
+    params.push({
+      page: page.toString(),
+    });
+  }
+  
+  return params;
+}
+
 type Props = {
   params: Promise<{ page: string }>;
 };

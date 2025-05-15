@@ -7,6 +7,29 @@ import Pagination from "@/components/Pagination";
 // 정적 내보내기를 위해 dynamic 설정 제거
 // export const dynamic = "force-dynamic";
 
+// 빌드 시점에 생성할 태그 페이지네이션 경로 지정
+export async function generateStaticParams() {
+  const tags = getAllTags();
+  const params = [];
+
+  for (const tag of tags) {
+    const normalizedTag = tag.toLowerCase().replace(/\s+/g, "-");
+    const posts = getPostsByTag(tag);
+    const postsPerPage = 12;
+    const totalPages = Math.max(1, Math.ceil(posts.length / postsPerPage));
+
+    // 각 태그의 모든 페이지에 대한 경로 생성
+    for (let page = 1; page <= totalPages; page++) {
+      params.push({
+        tag: normalizedTag,
+        page: page.toString(),
+      });
+    }
+  }
+
+  return params;
+}
+
 type Props = {
   params: Promise<{ tag: string; page: string }>;
 };
