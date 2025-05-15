@@ -16,18 +16,66 @@
 - 💬 **댓글 시스템**: GitHub Discussions 기반 Giscus 댓글 기능
 - 📑 **목차**: 포스트 내용 기반 자동 반응형 목차 생성
 - 🔗 **SEO 최적화**: 검색 엔진 최적화를 위한 메타데이터 관리
+- 🔒 **Private 포스팅 관리**: GitHub의 private 레포지토리를 통한 포스팅 콘텐츠 보호
 
-<!-- ## 기술 스택
+## Private 포스팅 관리
 
-- **프레임워크**: [Next.js 15](https://nextjs.org/) (React 19)
-- **스타일링**: [Tailwind CSS](https://tailwindcss.com/)
-- **마크다운 처리**:
-  - [gray-matter](https://github.com/jonschlinkert/gray-matter) (메타데이터 파싱)
-  - [remark](https://github.com/remarkjs/remark) (마크다운 처리)
-  - [rehype](https://github.com/rehypejs/rehype) (HTML 변환)
-- **구문 강조**: [Prism.js](https://prismjs.com/)
-- **댓글 시스템**: [Giscus](https://giscus.app/) (GitHub Discussions 기반)
-- **타입 시스템**: [TypeScript](https://www.typescriptlang.org/) -->
+이 블로그는 코드베이스는 public으로 공개하면서 포스팅 내용은 private으로 관리할 수 있도록 설계되었습니다. 이를 위해 Git submodule을 사용합니다:
+
+1. **메인 레포지토리 (public)**: 블로그의 코드, 디자인, 설정 등이 포함됩니다.
+2. **포스트 레포지토리 (private)**: 블로그 포스팅 내용만 포함하며, 메인 레포지토리에 submodule로 연결됩니다.
+
+### 초기 설정 방법
+
+1. GitHub에 private 레포지토리 생성 (예: `blog-posts`)
+2. 메인 블로그 레포지토리에 submodule로 추가:
+   ```bash
+   git submodule add git@github.com:YOUR_USERNAME/blog-posts.git src/content/posts
+   ```
+3. GitHub Actions에서 private 레포지토리에 접근할 수 있도록 Personal Access Token 설정:
+   - GitHub에서 Personal Access Token 생성 (`repo` 권한 필요)
+   - 메인 레포지토리의 Settings > Secrets and variables > Actions에서 `ACCESS_TOKEN` 시크릿 추가
+
+### 로컬 개발 시 사용법
+
+1. 레포지토리 클론 시 submodule 함께 가져오기:
+   ```bash
+   git clone --recurse-submodules git@github.com:YOUR_USERNAME/blog.git
+   ```
+2. 이미 클론한 경우 submodule 초기화:
+   ```bash
+   git submodule update --init --recursive
+   ```
+3. 포스트 작성 후 private 레포지토리에 먼저 커밋 및 푸시:
+   ```bash
+   cd src/content/posts
+   git add .
+   git commit -m "Add new post"
+   git push
+   ```
+4. 메인 레포지토리에서 submodule 참조 업데이트:
+   ```bash
+   cd ../../../
+   git add src/content/posts
+   git commit -m "Update posts submodule"
+   git push
+   ```
+
+## 검색 기능 사용법
+
+이 블로그는 클라이언트 사이드 검색 기능을 제공합니다. 검색 데이터는 빌드 시점에 생성되며, 다음과 같이 사용할 수 있습니다:
+
+1. **개발 환경에서 검색 데이터 생성**:
+   ```bash
+   node scripts/generate-search-data.js
+   ```
+   이 명령어는 `public/search-data.json` 파일을 생성합니다.
+
+2. **빌드 시 자동 생성**:
+   빌드 과정에서 `postbuild` 스크립트가 자동으로 검색 데이터를 생성합니다.
+
+3. **검색 사용**:
+   네비게이션 바의 검색창에 검색어를 입력하고 엔터를 누르면 검색 결과 페이지로 이동합니다.
 
 ## 사용법
 
