@@ -203,3 +203,33 @@ export function getAllTags(): string[] {
 
   return Array.from(tagsSet).sort();
 }
+
+/**
+ * 모든 포스트 메타데이터를 JSON 파일로 내보내는 함수
+ * 빌드 시점에 실행되어 public 디렉토리에 search-data.json 파일 생성
+ */
+export function generateSearchData() {
+  const posts = getAllPosts();
+  const searchData = posts.map(post => ({
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    tags: post.tags,
+    coverImage: post.coverImage || "",
+  }));
+
+  // public 디렉토리가 없으면 생성
+  const publicDir = path.join(process.cwd(), "public");
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
+  // 검색 데이터를 JSON 파일로 저장
+  fs.writeFileSync(
+    path.join(publicDir, "search-data.json"),
+    JSON.stringify(searchData),
+    "utf8"
+  );
+
+  return searchData;
+}

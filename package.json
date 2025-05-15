@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/generate-search-data.js",
     "start": "next start",
     "lint": "next lint"
   },
