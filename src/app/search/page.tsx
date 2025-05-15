@@ -43,27 +43,32 @@ function SearchResults() {
     }
   }, [queryParam]);
 
-  // 검색 실행 함수
+  // 검색 실행 함수 - 클라이언트 사이드 검색으로 변경
   const performSearch = async (query: string) => {
     if (!query.trim()) return;
 
     setIsSearching(true);
 
     try {
-      // 서버에 검색 요청 보내기
-      const response = await fetch(
-        `/api/search?q=${encodeURIComponent(query)}`
-      );
-
+      // 검색 데이터 JSON 파일 로드
+      const response = await fetch('/search-data.json');
+      
       if (!response.ok) {
-        throw new Error("검색 중 오류가 발생했습니다");
+        throw new Error("검색 데이터를 불러올 수 없습니다");
       }
 
-      const results = await response.json();
+      const allPosts = await response.json();
+      const lowerCaseQuery = query.toLowerCase();
+      
+      // 클라이언트에서 검색 수행
+      const results = allPosts.filter((post: PostMetadata) => 
+        post.title.toLowerCase().includes(lowerCaseQuery) ||
+        post.tags.some((tag: string) => tag.toLowerCase().includes(lowerCaseQuery))
+      );
+      
       setSearchResults(results);
     } catch (error) {
       console.error("검색 오류:", error);
-      // 오류 발생 시 빈 결과 표시
       setSearchResults([]);
     } finally {
       setIsSearching(false);

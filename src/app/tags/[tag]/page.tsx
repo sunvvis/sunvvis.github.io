@@ -4,8 +4,8 @@ import PostCard from "@/components/PostCard";
 import PageLayout from "@/components/PageLayout";
 import Pagination from "@/components/Pagination";
 
-// 서버 컴포넌트 명시
-export const dynamic = "force-dynamic";
+// 정적 내보내기를 위해 dynamic 설정 제거
+// export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ tag: string }>;

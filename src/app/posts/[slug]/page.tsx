@@ -10,12 +10,6 @@ import ClientGiscusComments from "@/components/ClientGiscusComments";
 import Image from "next/image";
 
 /**
- * 동적 렌더링을 강제하여 항상 최신 데이터를 표시하도록 설정
- * Next.js 서버 컴포넌트 옵션
- */
-export const dynamic = "force-dynamic";
-
-/**
  * 블로그 포스트 페이지 props 타입 정의
  * @typedef {Object} Props
  * @property {Promise<{slug: string}>} params - URL 파라미터 (포스트 슬러그)
