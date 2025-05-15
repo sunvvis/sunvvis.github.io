@@ -42,6 +42,18 @@ jobs:
           NEXT_IGNORE_ESLINT: 1  # ESLint 검사 건너뛰기
           NEXT_IGNORE_TYPE_CHECK: 1  # 타입 체크 건너뛰기
 
+      - name: Generate search data
+        run: node scripts/generate-search-data.js
+      
+      - name: Copy search data to out directory
+        run: |
+          if [ -f "public/search-data.json" ]; then
+            cp public/search-data.json out/
+            echo "Search data copied to out directory"
+          else
+            echo "Warning: search-data.json not found in public directory"
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

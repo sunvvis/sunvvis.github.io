@@ -50,7 +50,7 @@ function SearchResults() {
     setIsSearching(true);
 
     try {
-      // 검색 데이터 JSON 파일 로드
+      // 검색 데이터 JSON 파일 로드 (절대 경로로 수정)
       const response = await fetch('/search-data.json');
       
       if (!response.ok) {
