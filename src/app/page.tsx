@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <PageLayout
       title="블로그"
-      description="AI 관련 지식과 인사이트를 공유하는 기술 블로그입니다"
+      description="AI 관련 지식과 인사이트를 공유하는 기술 블로그입니다."
       fullWidth={false}
     >
       {/* 히어로 섹션 */}
