@@ -37,7 +37,7 @@ export default function GiscusComments() {
   }, []);
 
   // GitHub 저장소 설정이 완료되지 않은 경우 안내 메시지 표시
-  const isConfigured = false; // TODO: 실제 저장소 설정 후 true로 변경
+  const isConfigured = true; // TODO: 실제 저장소 설정 후 true로 변경
 
   if (!mounted) return null;
 
@@ -60,10 +60,10 @@ export default function GiscusComments() {
   return (
     <Giscus
       id="comments"
-      repo="[GITHUB_USERNAME]/[REPOSITORY_NAME]" // TODO: 실제 저장소로 변경 (예: username/blog)
-      repoId="[REPOSITORY_ID]" // TODO: giscus.app에서 생성된 ID로 변경
+      repo="sunvvis/sunvvis.github.io" // TODO: 실제 저장소로 변경 (예: username/blog)
+      repoId="R_kgDOOimUPQ" // TODO: giscus.app에서 생성된 ID로 변경
       category="Announcements" // TODO: 원하는 카테고리로 변경
-      categoryId="[CATEGORY_ID]" // TODO: giscus.app에서 생성된 ID로 변경
+      categoryId="DIC_kwDOOimUPc4CqMvN" // TODO: giscus.app에서 생성된 ID로 변경
       mapping="pathname"
       reactionsEnabled="1"
       emitMetadata="0"
