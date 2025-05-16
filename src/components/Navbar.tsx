@@ -27,7 +27,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"
         >
-          <span className="text-black dark:text-white">기술 블로그</span>
+          <span className="text-black dark:text-white">Sunwoo's Tech</span>
         </Link>
 
         {/* 네비게이션 메뉴 (모바일 & 데스크톱) */}

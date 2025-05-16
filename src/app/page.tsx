@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <PageLayout
       title="블로그"
-      description="Next.js로 만든 커스텀 기술 블로그입니다"
+      description="AI 관련 지식과 인사이트를 공유하는 기술 블로그입니다"
       fullWidth={false}
     >
       {/* 히어로 섹션 */}
@@ -50,16 +50,15 @@ export default function Home() {
 
         <div className="relative max-w-3xl">
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-50 mt-4 leading-tight">
-            프로그래밍과 개발에 관한 <br />
+            AI 엔지니어링에 관한 <br />
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-transparent bg-clip-text">
-              인사이트와 경험
+              지식과 인사이트
             </span>
-            을 공유합니다
+            를 공유합니다
           </h1>
           <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-            웹 개발, 프로그래밍 언어, 소프트웨어 아키텍쳐, 그리고 개발자 경험에
-            관한 글을 작성합니다. 최신 기술 트렌드와 실용적인 팁을 찾고
-            계신가요? 이곳에서 찾아보세요.
+            머신러닝, 딥러닝, LLM, AI 도구, 그리고 엔지니어링 경험에
+            관한 글을 작성합니다. 최신 AI 기술과 실용적인 팁을 이곳에서 만나보세요.
           </p>
         </div>
       </section>
